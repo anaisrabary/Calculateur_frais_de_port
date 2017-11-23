@@ -11,7 +11,7 @@ import java.util.Collection;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(Parameterized.class)
-public class ShippingToFranceMust
+public class ShippingToDestinationMust
     extends TestCase
 {
     private final int height ;
@@ -21,8 +21,8 @@ public class ShippingToFranceMust
     private final String dest ;
     private final String shippingcost ;
 
-    public ShippingToFranceMust(final int height, final int width, final int depth,
-                                final double weight, final String dest,  final String shippingcost)
+    public ShippingToDestinationMust(final int height, final int width, final int depth,
+                                     final double weight, final String dest, final String shippingcost)
     {
         this.height = height;
         this.width = width;
@@ -42,13 +42,13 @@ public class ShippingToFranceMust
 
             { 653, 331, 271, 3.650d, "FR", "83.76" },
 
-           // { 123, 191, 18,  2.354d, "MC", "13.04" },
+            { 123, 191, 18,  2.354d, "MC", "13.04" },
 
-            //{ 253, 215, 164, 1.565d, "MC", "33.03" },
+            { 253, 215, 164, 1.565d, "MC", "33.03" },
 
-            //{ 653, 133, 271, 2.132d, "MC", "50.10" },
+            { 653, 133, 271, 2.132d, "MC", "50.10" },
 
-            //{ 653, 331, 271, 3.650d, "MC", "91.05" }
+            { 653, 331, 271, 3.650d, "MC", "91.05" }
 
     };
 
@@ -58,12 +58,13 @@ public class ShippingToFranceMust
         return Arrays.asList(testParameters);
     }
 
+
     @Test
-    public void Must_Calculate__the_exact_price_for_a_given_package_in_France()
+    public void Must_Calculate_the_exact_price_for_a_given_package_to_a_given_Destination()
     {
         Package pack = new Package(height,width,depth,weight);
-        final double result = pack.calculateLocalShippingCost();
 
+        final double result = ShippingCostsCalculator.Create_Instance().calculateShippingCost(pack, Destination.valueOf(dest));
         assertThat(result).isEqualTo(Double.parseDouble(shippingcost));
     }
 
