@@ -9,7 +9,12 @@ import static java.math.RoundingMode.HALF_EVEN;
 
 public class ShippingCostsCalculator {
 
- private static final double PERCENTAGE_INCREASE_MONACO = 0.087 ;
+    public static final double COST_SMALL_PACKAGE = 12 ;
+    public static final double UNIT_COST_MIDIUM_WEIGHT = 17.59;
+    public static final double STATIC_FEE_MEDIUM_WEIGHT = 2.86;
+    public static final double UNIT_COST_BIG_WEIGHT =21.62;
+    public static final double UNIT_COST_BIG_VOLUM= 1.43;
+    private static final double PERCENTAGE_INCREASE_MONACO = 0.087 ;
  private static ShippingCostsCalculator instance;
 
  private ShippingCostsCalculator() {

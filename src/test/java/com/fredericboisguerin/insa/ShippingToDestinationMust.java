@@ -62,7 +62,7 @@ public class ShippingToDestinationMust
     @Test
     public void Must_Calculate_the_exact_price_for_a_given_package_to_a_given_Destination()
     {
-        Package pack = new Package(height,width,depth,weight);
+        Package pack = PackageFactory.createPackage(height,width,depth,weight);
 
         final double result = ShippingCostsCalculator.Create_Instance().calculateShippingCost(pack, Destination.valueOf(dest));
         assertThat(result).isEqualTo(Double.parseDouble(shippingcost));
