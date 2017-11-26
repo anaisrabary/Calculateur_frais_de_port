@@ -2,7 +2,7 @@ package com.fredericboisguerin.insa;
 
 public enum Destination {
 
-    FR("FR"), MC("MC");
+    FR("FR"), MC("MC"),DT("DT");
 
     private String text;
 

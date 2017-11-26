@@ -6,8 +6,7 @@ package com.fredericboisguerin.insa;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main( String[] args ){
+        new ShippingConsoleUI(PackageFactory.createInstance(), ShippingCostsCalculator.createInstance()).run();
     }
 }

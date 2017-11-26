@@ -48,7 +48,15 @@ public class ShippingToDestinationMust
 
             { 653, 133, 271, 2.132d, "MC", "50.10" },
 
-            { 653, 331, 271, 3.650d, "MC", "91.05" }
+            { 653, 331, 271, 3.650d, "MC", "91.05" },
+
+            { 191, 123,  18, 2.354d, "DT", "13.91" },
+
+            { 253, 215, 164, 1.565d, "DT", "33.29" },
+
+            { 653, 133, 271, 2.132d, "DT", "49.84" },
+
+            { 653, 331, 271, 3.650d, "DT", "89.54"},
 
     };
 
@@ -62,9 +70,10 @@ public class ShippingToDestinationMust
     @Test
     public void Must_Calculate_the_exact_price_for_a_given_package_to_a_given_Destination()
     {
-        Package pack = PackageFactory.createPackage(height,width,depth,weight);
+        PackageFactory factory = PackageFactory.createInstance();
+        Package pack = factory.createPackage(height,width,depth,weight);
 
-        final double result = ShippingCostsCalculator.Create_Instance().calculateShippingCost(pack, Destination.valueOf(dest));
+        final double result = ShippingCostsCalculator.createInstance().calculateShippingCost(pack, Destination.valueOf(dest));
         assertThat(result).isEqualTo(Double.parseDouble(shippingcost));
     }
 

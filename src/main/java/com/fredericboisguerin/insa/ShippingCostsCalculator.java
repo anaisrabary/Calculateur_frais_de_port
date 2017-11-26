@@ -3,6 +3,9 @@ package com.fredericboisguerin.insa;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+
+import static com.fredericboisguerin.insa.Destination.DT;
+import static com.fredericboisguerin.insa.Destination.FR;
 import static com.fredericboisguerin.insa.Destination.MC;
 import static java.math.RoundingMode.HALF_EVEN;
 
@@ -14,13 +17,18 @@ public class ShippingCostsCalculator {
     public static final double STATIC_FEE_MEDIUM_WEIGHT = 2.86;
     public static final double UNIT_COST_BIG_WEIGHT =21.62;
     public static final double UNIT_COST_BIG_VOLUM= 1.43;
+
     private static final double PERCENTAGE_INCREASE_MONACO = 0.087 ;
- private static ShippingCostsCalculator instance;
+    private static final double PERCENTAGE_INCREASE_DOMTOM = 0.054 ;
+    private static final double STATIC_FEE_DOMTOM = 1.26 ;
+
+
+    private static ShippingCostsCalculator instance;
 
  private ShippingCostsCalculator() {
  }
 
- public static ShippingCostsCalculator Create_Instance(){
+ public static ShippingCostsCalculator createInstance(){
      if (instance == null)
          instance = new ShippingCostsCalculator();
      return instance;
@@ -34,7 +42,9 @@ public class ShippingCostsCalculator {
 
     public BigDecimal calculate_Increase_Cost_Destination (Destination dest, double cost){
         if (dest == MC)
-            return new BigDecimal(PERCENTAGE_INCREASE_MONACO*cost,new MathContext(4,HALF_EVEN) ) ;
+            return new BigDecimal(PERCENTAGE_INCREASE_MONACO*cost).setScale(4,HALF_EVEN);
+        if (dest == DT)
+            return new BigDecimal(PERCENTAGE_INCREASE_DOMTOM*cost + STATIC_FEE_DOMTOM).setScale(4, HALF_EVEN);
 
         return BigDecimal.ZERO ;
 

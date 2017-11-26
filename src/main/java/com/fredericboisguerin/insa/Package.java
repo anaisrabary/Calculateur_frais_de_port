@@ -30,6 +30,11 @@ public abstract class Package {
         return height*width*depth ;
     }
 
-    private double getWeight(){ return this.weight; }
+    @Override
+    public String toString() {
+        return "Height : " + this.height + "\nWidth :" + this.width + "\nDepth :" + this.depth + "\nWeight :" + this.weight + "\n";
+    }
+
+    //private double getWeight(){ return this.weight; }
 
 }
