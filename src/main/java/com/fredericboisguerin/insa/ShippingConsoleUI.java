@@ -53,13 +53,60 @@ public class ShippingConsoleUI {
 
     private void executeCommande(String commande){
         //Commandes : cost | exit
+        boolean exit= false ;
+
         switch (commande){
             case "cost":
-                Package pack = evaluatePackageDescription();
-                System.out.println("\n That is the pack information you gave.");
-                System.out.println(pack);
-                System.out.println("Enter the Shipping destination : FR for France, MC for Monaco, DT for DOM/TOM");
-                String dest = scan.nextLine();
+                String check ;
+                String dest = "";
+                Package pack= null;
+                do {
+                    System.out.println("Enter the package height (X.X)");
+                    String sheight = scan.nextLine();
+                    if (sheight.equals("exit")) {
+                        exit = true;
+                        break ;
+                    }
+                    int height = Integer.parseInt(sheight);
+
+                    System.out.println("Enter the package width (X.X)");
+                    String swidth = scan.nextLine();
+                    if (swidth.equals("exit")) {
+                        exit = true;
+                        break;
+                    }
+                    int width = Integer.parseInt(swidth);
+
+                    System.out.println("Enter the package depth (X.X)");
+                    String sdepth = scan.nextLine();
+                    if (sdepth.equals("exit")) {
+                        exit = true;
+                        break;
+                    }
+                    int depth = Integer.parseInt(sdepth);
+
+                    System.out.println("Enter the package weight (X.X)");
+                    String sweight = scan.nextLine();
+                    if (sheight.equals("exit")) {
+                        exit = true;
+                        break ;
+                    }
+                    double weight = Double.parseDouble(sweight);
+                    pack = factory.createPackage(height,width,depth,weight);
+
+                    System.out.println("Enter the Shipping destination : FR for France, MC for Monaco, DT for DOM/TOM");
+                    dest = scan.nextLine();
+                    if (dest.equals("exit")) {
+                        exit = true;
+                        break;
+                    }
+                    System.out.println("\n That is the pack information you gave.");
+                    System.out.println(pack);
+                    System.out.println(dest);
+                    System.out.println("Are those information correct ? (yes|no|exit)");
+                    check = scan.nextLine().toLowerCase().trim();
+                } while(!check.equals("yes"));
+                if (exit) break ;
                 double calculatedcost = costsCalculator.calculateShippingCost(pack, Destination.valueOf(dest));
                 System.out.printf("This is the shipping cost you will have to pay :  %.2f € \n", calculatedcost);
                 break;
@@ -69,23 +116,6 @@ public class ShippingConsoleUI {
                 System.out.printf("ERROR : Command not found (\"%s\")", commande);
                 System.out.println("Commands : cost | exit \n");
         }
-    }
-
-    private Package evaluatePackageDescription(){
-        System.out.println("Enter the package height (X.X)");
-        int height = Integer.parseInt(scan.nextLine());
-
-        System.out.println("Enter the package width (X.X)");
-        int width = Integer.parseInt(scan.nextLine());
-
-        System.out.println("Enter the package depth (X.X)");
-        int depth = Integer.parseInt(scan.nextLine());
-
-        System.out.println("Enter the package weight (X.X)");
-        double weight = Double.parseDouble(scan.nextLine());
-
-        return factory.createPackage(height,width,depth,weight);
-
     }
 
 }
